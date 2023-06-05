@@ -111,8 +111,17 @@ export default function MergeEditor() {
                     </Button>
                     <Button
                         className="ms-2"
-                        disabled={!changedText}
-                        onClick={() => alert("save")}
+                        disabled={!app.activeScene || !changedText}
+                        onClick={() => {
+                            dispatch({
+                                type: ActionType.SAVE_CHANGES,
+                                payload: {
+                                    ...app.activeScene,
+                                    text: changedText,
+                                },
+                            });
+                            navigate("/");
+                        }}
                         size="sm"
                         variant="primary"
                     >

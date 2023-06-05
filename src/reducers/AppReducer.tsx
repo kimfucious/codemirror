@@ -26,6 +26,8 @@ const initialState = {
 
 const abandonChanges = createAction<null>(ActionType.ABANDON_CHANGES);
 
+const saveChanges = createAction<Scene>(ActionType.SAVE_CHANGES);
+
 const setDraftSceneText = createAction<string>(
     ActionType.SET_DRAFT_ACTIVE_SCENE_TEXT
 );
@@ -35,6 +37,12 @@ const reducer = createReducer({ ...initialState }, (builder) => {
     builder
         .addCase(abandonChanges, () => {
             return initialState;
+        })
+        .addCase(saveChanges, (state,action) => {
+            return {
+                ...state,
+                activeScene: action.payload,
+            };
         })
         .addCase(setId, (state, action) => {
             return {
