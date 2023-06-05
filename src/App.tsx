@@ -1,9 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-const Editor = lazy(() => import("./Editor"));
-const MergeEditor = lazy(() => import("./MergeEditor"));
-const Other = lazy(() => import("./Other"));
+const Main = lazy(() => import("./Main"));
 
 export default function Router() {
   return (
@@ -13,23 +11,7 @@ export default function Router() {
           path="/"
           element={
             <Suspense>
-              <Editor />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/merge"
-          element={
-            <Suspense>
-              <MergeEditor />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/other"
-          element={
-            <Suspense>
-              <Other />
+              <Main />
             </Suspense>
           }
         />

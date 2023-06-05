@@ -7,7 +7,6 @@ import { vim } from "@replit/codemirror-vim";
 import CodeMirrorMerge from "react-codemirror-merge";
 import { materialDarkInit } from "@uiw/codemirror-theme-material";
 import { solarizedLightInit } from "@uiw/codemirror-theme-solarized";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Scene } from "./reducers/AppReducer";
 import { ActionType } from "./types";
@@ -18,7 +17,6 @@ const Modified = CodeMirrorMerge.Modified;
 export default function MergeEditor() {
     const { app } = useAppSelector((state) => state);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
     const [changedText, setChangedText] = useState("");
     const [isDark, setIsDark] = useState(true);
 
@@ -90,7 +88,12 @@ export default function MergeEditor() {
                 <div className="d-flex align-items-center">
                     <Button
                         className="text-decoration-none text-muted"
-                        onClick={() => navigate("/")}
+                        onClick={() =>
+                            dispatch({
+                                type: ActionType.SET_IS_DIFFING,
+                                payload: false,
+                            })
+                        }
                         size="sm"
                         variant="link"
                     >
@@ -102,7 +105,6 @@ export default function MergeEditor() {
                         className="ms-2"
                         onClick={() => {
                             dispatch({ type: ActionType.ABANDON_CHANGES });
-                            navigate("/");
                         }}
                         size="sm"
                         variant="danger"
@@ -120,7 +122,6 @@ export default function MergeEditor() {
                                     text: changedText,
                                 },
                             });
-                            navigate("/");
                         }}
                         size="sm"
                         variant="primary"

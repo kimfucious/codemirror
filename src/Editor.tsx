@@ -3,9 +3,7 @@ import { Button } from "react-bootstrap";
 import { EditorView } from "codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import { vim } from "@replit/codemirror-vim";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
-import { Scene } from "./reducers/AppReducer";
 import CodeMirror from "@uiw/react-codemirror";
 import { ActionType } from "./types";
 import config from "./config/config.json";
@@ -13,7 +11,6 @@ import config from "./config/config.json";
 export default function Editor() {
     const { app } = useAppSelector((state) => state);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
     const [isDark, setIsDark] = useState(true);
 
     const dirty = useMemo(() => {
@@ -45,7 +42,12 @@ export default function Editor() {
             <div className="d-flex align-items-center justify-content-between w-100 mb-3 py-3 border-bottom border-danger">
                 <Button
                     disabled={!dirty}
-                    onClick={() => navigate("/merge")}
+                    onClick={() =>
+                        dispatch({
+                            type: ActionType.SET_IS_DIFFING,
+                            payload: true,
+                        })
+                    }
                     size="sm"
                 >
                     Show Diffs
