@@ -1,29 +1,53 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+import { ActionType } from "../types";
 
 export interface Scene {
-  id: string;
-  text: string;
+    id: string;
+    text: string;
 }
 export interface AppState {
-  abandonedSceneId: string;
-  scenes: Scene[];
+    abandonedSceneId: string;
+    activeScene: Scene | undefined;
+    draftActiveSceneText: string;
+    scenes: Scene[];
 }
-const original = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
+const scenes = [
+    { id: "1", text: "ABC" },
+    { id: "2", text: "123" },
+];
 
 const initialState = {
-  abandonedSceneId: "",
-  scenes: [{ id: "123", text: original }]
+    abandonedSceneId: "",
+    activeScene: scenes[0],
+    draftActiveSceneText: scenes[0].text,
+    scenes,
 } as AppState;
 
-const setId = createAction<string>("SET_ID");
+const abandonChanges = createAction<null>(ActionType.ABANDON_CHANGES);
+
+const setDraftSceneText = createAction<string>(
+    ActionType.SET_DRAFT_ACTIVE_SCENE_TEXT
+);
+const setId = createAction<string>(ActionType.SET_ID);
 
 const reducer = createReducer({ ...initialState }, (builder) => {
-  builder.addCase(setId, (state, action) => {
-    return {
-      ...state,
-      abandonedSceneId: action.payload
-    };
-  });
+    builder
+        .addCase(abandonChanges, () => {
+            return initialState;
+        })
+        .addCase(setId, (state, action) => {
+            return {
+                ...state,
+                abandonedSceneId: action.payload,
+            };
+        })
+        .addCase(setDraftSceneText, (state, action) => {
+            return {
+                ...state,
+                draftActiveSceneText: action.payload,
+            };
+        });
 });
 
 export default reducer;
