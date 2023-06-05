@@ -24,12 +24,16 @@ export default function Editor() {
                     type: ActionType.SET_DRAFT_ACTIVE_SCENE_TEXT,
                     payload: value,
                 });
+                
+                /*
+                Not using this for demo
                 const payload = {
                     id: app.activeScene?.id,
                     text: value,
                 };
                 const str = JSON.stringify(payload);
                 localStorage.setItem(config.DRAFT_SCENE_KEY, str);
+                */
             } catch (error) {
                 console.warn(error);
             }
