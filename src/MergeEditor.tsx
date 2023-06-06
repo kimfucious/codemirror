@@ -5,8 +5,8 @@ import { EditorView } from "codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import { vim } from "@replit/codemirror-vim";
 import CodeMirrorMerge from "react-codemirror-merge";
-import { materialDarkInit } from "@uiw/codemirror-theme-material";
-import { solarizedLightInit } from "@uiw/codemirror-theme-solarized";
+import { solarizedLight } from "@uiw/codemirror-theme-solarized";
+import { oneDark } from "@codemirror/theme-one-dark";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Scene } from "./reducers/AppReducer";
 import { ActionType } from "./types";
@@ -38,47 +38,16 @@ export default function MergeEditor() {
         const defaultThemeOptions = EditorView.theme(
             {
                 "&": {
-                    background: isDark
-                        ? "#2e3235 !important"
-                        : "#2e3235 !important",
                     backgroundColor: isDark
-                        ? "#2e3235 !important"
+                        ? "#282c34 !important"
                         : "#fdf6e3 !important",
-                    foreground: isDark
-                        ? "#bdbdbd !important"
-                        : "#657b83 !important",
-                    caret: isDark ? "#a0a4ae !important" : "#586e75 !important",
-                    selection: isDark
-                        ? "#d7d4f0 !important"
-                        : "#dfd9c8 !important",
-                    selectionMatch: isDark
-                        ? "#d7d4f0 !important"
-                        : "#dfd9c8 !important",
-                    gutterBackground: isDark
-                        ? "#2e3235 !important"
-                        : "#00000010 !important",
-                    gutterActiveBackground: isDark
-                        ? "#4f5b66 !important"
-                        : "#00000010 !important",
-                    gutterActiveForeground: isDark
-                        ? "#000 !important"
-                        : "#657b83 !important",
-                    gutterForeground: isDark
-                        ? // ? "#999 !important"
-                          "#ff69b4 !important"
-                        : "#657b83 !important",
-                    lineHighlight: isDark
-                        ? "#545b61 !important"
-                        : "#dfd9c8 !important",
                 },
             },
             {
                 dark: isDark,
             }
         );
-        const theme = isDark
-            ? materialDarkInit({ theme: "dark" })
-            : solarizedLightInit({ theme: "light" });
+        const theme = isDark ? [oneDark] : [solarizedLight];
         return { defaultThemeOptions, theme };
     }, [isDark]);
 
