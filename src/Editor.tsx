@@ -6,7 +6,8 @@ import { vim } from "@replit/codemirror-vim";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import CodeMirror from "@uiw/react-codemirror";
 import { ActionType } from "./types";
-import config from "./config/config.json";
+import { solarizedLight } from "@uiw/codemirror-theme-solarized";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 export default function Editor() {
     const { app } = useAppSelector((state) => state);
@@ -24,7 +25,7 @@ export default function Editor() {
                     type: ActionType.SET_DRAFT_ACTIVE_SCENE_TEXT,
                     payload: value,
                 });
-                
+
                 /*
                 Not using this for demo
                 const payload = {
@@ -73,8 +74,8 @@ export default function Editor() {
                 }}
                 value={app.draftActiveSceneText}
                 // themes: https://uiwjs.github.io/react-codemirror/#/theme/home
-                theme={isDark ? "dark" : "light"}
-                height={"500px"}
+                theme={isDark ? oneDark : solarizedLight}
+                height={"500px !important"}
                 width={`calc(36em + 74px)`}
                 extensions={[
                     vim({ status: true }),
