@@ -14,6 +14,7 @@
     "@types/redux-logger": "3.0.9",
     "@uiw/codemirror-theme-material": "4.19.11",
     "@uiw/codemirror-theme-solarized": "4.19.11",
+    "@uiw/react-codemirror": "^4.21.3",
     "bootstrap": "5.2.3",
     "loader-utils": "3.2.1",
     "react": "18.2.0",
